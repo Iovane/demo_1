@@ -2,23 +2,31 @@ package com.example.demo.customer;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.Max;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+@Entity
+@Table
 public class Customer {
-    private final long id;
+
+    @Id
+    private long id;
+
     @NotBlank(message = "name must be not empty")
-    private final String name;
+    private String name;
+
     @NotBlank(message = "password must be not empty")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Size(max = 16, message = "password must not be longer than 16 letters")
-    private final String password;
+    private String password;
 
     @NotBlank(message = "email must be not empty")
     @Email
-    private final String email;
+    private String email;
 
     public Customer(long id,
                     String name,
@@ -45,6 +53,9 @@ public class Customer {
 
     public String getEmail() {
         return email;
+    }
+
+    public Customer() {
     }
 
     @Override
